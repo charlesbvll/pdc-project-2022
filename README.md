@@ -2,7 +2,7 @@
 
 Transmission of a message over a complex AGWN channel with the following characteristics :
 
-<img src="https://latex.codecogs.com/svg.image?\bg{black}{\color{White}&space;Y&space;=&space;\exp{\Theta&space;i}&space;X&space;&plus;&space;Z&space;\text{&space;with&space;}&space;\Theta&space;\sim&space;U(0,&space;2\pi&space;)&space;\text{&space;and&space;}&space;Z&space;\sim&space;\mathcal{CN}\left(0,&space;\frac{\sigma^2}{2}\right)&space;\text{&space;where&space;}&space;\sigma^2&space;=&space;10^{-2.65}&space;\text{.}" />
+<img src="docs/channel.png" />
 
 `numpy` is required to run the script : `pip install numpy`.
 
