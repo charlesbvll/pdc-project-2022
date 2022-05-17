@@ -1,4 +1,5 @@
 import numpy as np
+import jellyfish
 
 def channel(sent_signal):
     s = np.mean(sent_signal**2)
@@ -46,3 +47,10 @@ def compare(strings):
             _max = tmp
             idx = i
     return strings[idx]
+
+def compute_score():
+    ini = read_file('initial.txt')
+    fin = read_file('final.txt')
+
+    print("Result is : ", fin[0])
+    print("Number of different characters : ", jellyfish.damerau_levenshtein_distance(ini[0], fin[0]))

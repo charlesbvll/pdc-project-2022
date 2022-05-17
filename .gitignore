@@ -4,3 +4,4 @@ output.txt
 *.zip
 pdc/*
 __pycache__/*
+*.old

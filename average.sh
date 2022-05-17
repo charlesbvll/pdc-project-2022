@@ -8,20 +8,15 @@ do
     python transmitter.py
     #python client.py --input_file=input.txt --output_file=output.txt --srv_hostname=iscsrv72.epfl.ch --srv_port=80
     python client.py --input_file=input.txt --output_file=output.txt
-    python receiver.py
+    python receiver.py > tmp
 
-    echo "Result is : $(cat final.txt)"
-
-    grep -o . initial.txt >> temp1
-    grep -o . final.txt >> temp2
-
-    let "val = $(diff temp1 temp2 | grep '^[1-9]' | wc -l)"
+    let "val = $(grep --text -Eo '[0-9]{1,4}' tmp)"
 
     echo "Number of different characters : $val"
 
     let "sum = $sum + $val"
 
-    rm temp*
+    rm tmp
 
     # if [ "$i" -ne "$end" ] 
     # then
