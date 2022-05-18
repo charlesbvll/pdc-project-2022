@@ -1,7 +1,7 @@
 #!/bin/sh
 
 let "sum = 0"
-let "end = 10"
+let "end = 9"
 
 for (( i = 0; i <= $end; i++ ))
 do
@@ -12,7 +12,7 @@ do
 
     let "val = $(grep --text -Eo '[0-9]{1,4}' tmp)"
 
-    echo "Number of different characters : $val"
+    cat tmp
 
     let "sum = $sum + $val"
 

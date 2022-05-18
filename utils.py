@@ -1,5 +1,25 @@
-import numpy as np
 import jellyfish
+import numpy as np
+
+from math import sqrt
+
+def make_const_code(m):
+    const = []
+    code = []
+    N = int(sqrt(m/4))
+    for k in range(4):
+        for i in range(N):
+            for j in range(N):
+                s1 = -1 if k < 2 else 1
+                s2 = -1 if k % 2 == 0 else 1 
+                re = s1*(2*j+1)/10
+                im = s2*(2*i+1)/10
+                bits = bin(int((m/4))*k + N*i + j)[2:]
+                byte = '00000000'[len(bits):] + bits
+                const.append(complex(re, im))
+                code.append(byte)
+
+    return const, code
 
 def channel(sent_signal):
     s = np.mean(sent_signal**2)
@@ -35,18 +55,6 @@ def read_file(path):
 def write_final(text):
     with open("final.txt", "w+", encoding="utf-8") as file:
         file.write(text)
-
-def compare(strings):
-    _max = 0.0
-    idx = 0
-    for i, s in enumerate(strings):
-        count = len(np.array([int(ord(c)) for c in s if 97 < int(ord(c)) < 122]))
-        bad = len(np.array([int(ord(c)) for c in s if int(ord(c)) < 30]))
-        tmp = count/(bad+1)
-        if tmp > _max:
-            _max = tmp
-            idx = i
-    return strings[idx]
 
 def compute_score():
     ini = read_file('initial.txt')

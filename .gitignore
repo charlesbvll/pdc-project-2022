@@ -1,6 +1,4 @@
-final.txt
-input.txt
-output.txt
+*.txt
 *.zip
 pdc/*
 __pycache__/*
