@@ -1,16 +1,21 @@
-import itertools
-
 import numpy as np
 
 from utils import make_const_code
 
-const, code = make_const_code(256)
+m = 256
+const, code = make_const_code(m)
 
 def to_qam(s):
     result = []
+    tmp = ''
+    N = int(np.log2(m))
     for c in s:
         bits = bin(ord(c))[2:]
         byte = ('0'*8)[len(bits):] + bits
+        tmp += byte
+
+    sep = [tmp[i:i+N] for i in range(0, len(tmp), N)]
+    for byte in sep:
         result.append(const[int("".join(str(k) for k in byte), 2)])
     return np.array(result)
 
