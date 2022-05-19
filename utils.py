@@ -2,7 +2,7 @@ import jellyfish
 import numpy as np
 
 def channel(sent_signal):
-    s = np.mean(sent_signal**2)
+    s = np.mean(abs(sent_signal)**2)
     if s <= 1:
         s = 1
     noise_power = (10**(-2.65))*s
