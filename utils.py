@@ -52,7 +52,7 @@ def encode(qam):
     serialize_complex(result, "input.txt")
 
 def decode(qam):
-    content = read_file("output.txt")
+    content = deserialize_complex(read_file("output.txt"))
     content = [complex(c) for c in content]
 
     comps = qam.decode(content)

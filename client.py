@@ -81,4 +81,4 @@ if __name__ == '__main__':
                 err_msg = f'Unknown header: {rx_header}'
                 raise Exception(err_msg)
     else:
-        np.savetxt(args.output_file, channel(deserialize_complex(args.input_file)))
+        serialize_complex(channel(deserialize_complex(args.input_file)), args.output_file)
