@@ -56,6 +56,18 @@ def write_final(text):
     with open("final.txt", "w+", encoding="utf-8") as file:
         file.write(text)
 
+def compare(strings):
+    _max = 0.0
+    idx = 0
+    for i, s in enumerate(strings):
+        count = len(np.array([int(ord(c)) for c in s if 97 < int(ord(c)) < 122]))
+        bad = len(np.array([int(ord(c)) for c in s if int(ord(c)) < 30]))
+        tmp = count/(bad+1)
+        if tmp > _max:
+            _max = tmp
+            idx = i
+    return strings[idx]
+
 def compute_score():
     ini = read_file('initial.txt')
     fin = read_file('final.txt')
