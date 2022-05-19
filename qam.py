@@ -6,7 +6,7 @@ class QAM:
     def __init__(self, m):
         self.m = m
         self.const, self.code = self.make_const_code(m)
-        self.K = 20
+        self.K = 19
 
     def make_const_code(self, m):
         const = []
@@ -14,7 +14,7 @@ class QAM:
         quad = int(m/4)
         sq = sqrt(m)
         N = int(sqrt(quad))
-        lim = 1.2
+        lim = 1.1
         for k in range(4):
             for i in range(N):
                 for j in range(N):
@@ -42,14 +42,15 @@ class QAM:
         # Determine phase
         for _ in range(self.K):
             result.append(complex(1, 0))
-
+        for _ in range(22 - self.K):
+            result.append(complex(0, 0))
         for byte in sep:
             result.append(self.const[int("".join(str(k) for k in byte), 2)])
         return np.array(result)
 
     def decode(self, s):
         phase = s[0:self.K]
-        s = s[self.K: len(s)]
+        s = s[22: len(s)]
         tmp = ''
         theta = -np.angle(sum(phase))
         for c in s:
