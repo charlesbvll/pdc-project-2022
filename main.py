@@ -15,8 +15,8 @@ def parse_args():
 
     parser.add_argument('--srv', action='store_true',
                         help='If set, it runs the program on the EPFL server (requires VPN)')
-    parser.add_argument('--no_comp', action='store_true',
-                        help='If set, it does not use the brute force approach for Theta estimation')
+    parser.add_argument('--comp', action='store_true',
+                        help='If set, it uses the brute force approach for Theta estimation')
     parser.add_argument('--n', type=int, default=1,
                         help='Number of times to test the transmission')
     parser.add_argument('--m', type=int, default=256,
@@ -28,7 +28,7 @@ if __name__ == '__main__':
     args = parse_args()
     
     n = args.n
-    comp = not args.no_comp
+    comp = args.comp
     qam = qam.QAM(args.m)
     cmd = "--srv_hostname=iscsrv72.epfl.ch --srv_port=80" if args.srv else ""
 
