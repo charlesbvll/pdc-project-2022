@@ -19,7 +19,7 @@ import socket
 import numpy as np
 
 import channel_helper as ch
-from utils import channel, deserialize_complex, serialize_complex
+from utils import channel, deserialize_complex, serialize_complex, read_file
 
 def parse_args():
     parser = argparse.ArgumentParser(description="COM-302 black-box channel simulator. (client)",
@@ -82,3 +82,4 @@ if __name__ == '__main__':
                 raise Exception(err_msg)
     else:
         serialize_complex(channel(deserialize_complex(args.input_file)), args.output_file)
+

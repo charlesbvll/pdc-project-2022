@@ -14,13 +14,14 @@ class QAM:
         quad = int(m/4)
         sq = sqrt(m)
         N = int(sqrt(quad))
+        lim = 1
         for k in range(4):
             for i in range(N):
                 for j in range(N):
                     s1 = -1 if k < 2 else 1
                     s2 = -1 if k % 2 == 0 else 1 
-                    re = s1*(2*j+1)*(3/2)*(1/(sq-1))
-                    im = s2*(2*i+1)*(3/2)*(1/(sq-1))
+                    re = s1*(2*j+1)*(lim)*(1/(sq-1))
+                    im = s2*(2*i+1)*(lim)*(1/(sq-1))
                     bits = bin(quad*k + N*i + j)[2:]
                     byte = '00000000'[len(bits):] + bits
                     const.append(complex(re, im))
