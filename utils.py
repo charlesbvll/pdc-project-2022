@@ -1,28 +1,6 @@
 import jellyfish
 import numpy as np
 
-from math import sqrt
-
-def make_const_code(m):
-    const = []
-    code = []
-    quad = int(m/4)
-    sq = sqrt(m)
-    N = int(sqrt(quad))
-    for k in range(4):
-        for i in range(N):
-            for j in range(N):
-                s1 = -1 if k < 2 else 1
-                s2 = -1 if k % 2 == 0 else 1 
-                re = s1*(2*j+1)*(3/2)*(1/(sq-1))
-                im = s2*(2*i+1)*(3/2)*(1/(sq-1))
-                bits = bin(quad*k + N*i + j)[2:]
-                byte = '00000000'[len(bits):] + bits
-                const.append(complex(re, im))
-                code.append(byte)
-
-    return const, code
-
 def channel(sent_signal):
     s = np.mean(sent_signal**2)
     if s <= 1:
@@ -71,8 +49,46 @@ def compare(strings):
     return strings[idx]
 
 def compute_score():
-    ini = read_file('initial.txt')
-    fin = read_file('final.txt')
+    ini = read_file('initial.txt')[0]
+    fin = read_file('final.txt')[0]
+    diff = jellyfish.damerau_levenshtein_distance(ini, fin)
 
-    print("Result is : ", fin[0])
-    print("Number of different characters : ", jellyfish.damerau_levenshtein_distance(ini[0], fin[0]))
+    print("Result is : ", fin)
+    print("Number of different characters : ", diff)
+
+    return diff
+
+def encode(qam):
+    initial_str = read_file("initial.txt") 
+    result = qam.encode(initial_str[0])
+    serialize_complex(result, "input.txt")
+
+def decode(qam, comparaison=True):
+    content = read_file("output.txt")
+    content = [complex(c) for c in content]
+
+    if comparaison:
+        _list = qam.decode_to_list(content)
+        strings = list_to_strings(_list)
+        finalText = compare(strings)
+    else:
+        comps = qam.decode(content)
+        finalText = comps_to_string(comps)
+    write_final(finalText)
+
+def list_to_strings(_list):
+    strings = []
+    for _bytes in _list:
+        chars = []
+        for byte in _bytes:
+            u = int('0b' + byte, 2)
+            chars.append(chr(u))
+        strings.append(''.join(chars))
+    return strings
+
+def comps_to_string(_bytes):
+    chars = []
+    for byte in _bytes:
+        u = int('0b' + byte, 2)
+        chars.append(chr(u))
+    return ''.join(chars)

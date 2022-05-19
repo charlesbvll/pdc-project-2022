@@ -4,20 +4,12 @@ Transmission of a message over a complex AGWN channel with the following charact
 
 <img src="docs/channel.png" />
 
-`numpy` is required to run the script : `pip install numpy`.
+`numpy` and `jellyfish` are required to run the script : `pip install numpy jellyfish`.
 
-The simplest way to run the project is by using `run.sh` while connected to the VPN or without using the `srv_hostname` argument (the noisy channel will be emulated locally, the wanted behavior must be uncommented in the `run.sh` file).
-You can also run `average.sh` to run 10 iterations of the program and get the average error (although this might take a while). If you want to use the channel for the server you must uncommment the lines that add a 30sec delay in `average.sh`.
+The program can be ran using the following command :
 
-The program can also be ran by hand using :
 ```sh
-python transmitter.py #to generate the encoded input for the client from a file name 'initial.txt'
-python client.py --input_file=input.txt --output_file=output.txt --srv_hostname=iscsrv72.epfl.ch --srv_port=80
-python receiver.py #to write the decoded output to a file called 'final.txt'
+python main.py --srv=False --comp=True --n=1 --m=256
 ```
-or to run it with the locally emulated noisy channel :
-```sh
-python transmitter.py #to generate the encoded input for the client from a file name 'initial.txt'
-python client.py --input_file=input.txt --output_file=output.txt
-python receiver.py #to write the decoded output to a file called 'final.txt'
-```
+
+In the above command all the values used are the default ones, when `--srv` the channel used is the one on the EPFL server (VPN required) otherwise it uses a simulated channel locally, the `--comp` argument tells the program to use a brute force approach to estimate the angle of Theta, the `--n` argument allows you to run the transmission multiple times and get an average difference and the `--m` argument is there to choose the number of points in the QAM constellation.
