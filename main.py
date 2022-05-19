@@ -3,6 +3,7 @@ import utils
 
 import argparse
 import subprocess
+import time
 
 import numpy as np
 
@@ -36,9 +37,13 @@ if __name__ == '__main__':
     tot = 0
     for i in range(n):
         subprocess.call("python client.py --input_file=input.txt --output_file=output.txt" + cmd, shell=True)
+
         utils.decode(qam, comp)
 
         tot += utils.compute_score()
+        
+        if args.srv and n > 1:
+            time.sleep(30)
 
     if n > 1:
         print("Average difference is : ", tot/n)
