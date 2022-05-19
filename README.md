@@ -1,4 +1,4 @@
-# 16QAM modulation for complex AWGN communication
+# QAM modulation for complex AWGN communication
 
 Transmission of a message over a complex AGWN channel with the following characteristics :
 
