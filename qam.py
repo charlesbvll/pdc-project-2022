@@ -6,7 +6,8 @@ class QAM:
     def __init__(self, m):
         self.m = m
         self.const, self.code = self.make_const_code(m)
-        self.K = 19
+        self.K = 9
+        self.maxK = 9
 
     def make_const_code(self, m):
         const = []
@@ -14,7 +15,7 @@ class QAM:
         quad = int(m/4)
         sq = sqrt(m)
         N = int(sqrt(quad))
-        lim = 1.1
+        lim = 0.9
         for k in range(4):
             for i in range(N):
                 for j in range(N):
@@ -23,7 +24,7 @@ class QAM:
                     re = s1*(2*j+1)*(lim)*(1/(sq-1))
                     im = s2*(2*i+1)*(lim)*(1/(sq-1))
                     bits = bin(quad*k + N*i + j)[2:]
-                    byte = '0000000'[len(bits):] + bits
+                    byte = '000000'[len(bits):] + bits
                     const.append(complex(re, im))
                     code.append(byte)
         return const, code
@@ -42,15 +43,15 @@ class QAM:
         # Determine phase
         for _ in range(self.K):
             result.append(complex(1, 0))
-        for _ in range(22 - self.K):
-            result.append(complex(0, 0))
+        for _ in range(self.maxK - self.K):
+            result.append(complex(0, 0)) #could be useful to reduce average energy
         for byte in sep:
             result.append(self.const[int("".join(str(k) for k in byte), 2)])
         return np.array(result)
 
     def decode(self, s):
         phase = s[0:self.K]
-        s = s[22: len(s)]
+        s = s[self.maxK:]
         tmp = ''
         theta = -np.angle(sum(phase))
         for c in s:
