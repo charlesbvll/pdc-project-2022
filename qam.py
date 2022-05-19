@@ -14,7 +14,7 @@ class QAM:
         quad = int(m/4)
         sq = sqrt(m)
         N = int(sqrt(quad))
-        lim = 1
+        lim = 1.2
         for k in range(4):
             for i in range(N):
                 for j in range(N):
@@ -23,10 +23,9 @@ class QAM:
                     re = s1*(2*j+1)*(lim)*(1/(sq-1))
                     im = s2*(2*i+1)*(lim)*(1/(sq-1))
                     bits = bin(quad*k + N*i + j)[2:]
-                    byte = '00000000'[len(bits):] + bits
+                    byte = '0000000'[len(bits):] + bits
                     const.append(complex(re, im))
                     code.append(byte)
-
         return const, code
 
     def encode(self, s):
@@ -35,7 +34,7 @@ class QAM:
         N = int(np.log2(self.m))
         for c in s:
             bits = bin(ord(c))[2:]
-            byte = ('0'*8)[len(bits):] + bits
+            byte = ('0'*7)[len(bits):] + bits
             tmp += byte
 
         sep = [tmp[i:i+N] for i in range(0, len(tmp), N)]
@@ -57,4 +56,4 @@ class QAM:
             shifted = c*np.exp(1j*(theta))
             idx = np.argmin([abs(shifted-e) for e in self.const])
             tmp += self.code[idx]
-        return [tmp[i:i+8] for i in range(0, len(tmp), 8)]
+        return [tmp[i:i+7] for i in range(0, len(tmp), 7)]

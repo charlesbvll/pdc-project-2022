@@ -17,7 +17,7 @@ def parse_args():
                         help='If set, it runs the program on the EPFL server (requires VPN)')
     parser.add_argument('--n', type=int, default=1,
                         help='Number of times to test the transmission')
-    parser.add_argument('--m', type=int, default=256,
+    parser.add_argument('--m', type=int, default=144,
                         help='Number of points in the qam constellation')
 
     return parser.parse_args()
