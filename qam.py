@@ -6,7 +6,7 @@ class QAM:
     def __init__(self, m):
         self.m = m
         self.const, self.code = self.make_const_code(m)
-        self.K = 10
+        self.K = 20
 
     def make_const_code(self, m):
         const = []
@@ -48,7 +48,7 @@ class QAM:
         return np.array(result)
 
     def decode(self, s):
-        phase = s[0:self.K-1]
+        phase = s[0:self.K]
         s = s[self.K: len(s)]
         tmp = ''
         theta = -np.angle(sum(phase))

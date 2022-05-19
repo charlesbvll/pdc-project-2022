@@ -3,14 +3,14 @@ import numpy as np
 
 def channel(sent_signal):
     s = np.mean(abs(sent_signal)**2)
+    print(s)
     if s <= 1:
         s = 1
     noise_power = (10**(-2.65))*s
     shift = np.exp(-2j*np.pi*np.random.rand())
     sent_signal = sent_signal*shift
     noise_std = np.sqrt(noise_power/2)
-    rcv_signal = sent_signal + noise_std*np.random.randn(len(sent_signal))
-    + 1j*noise_std*np.random.randn(len(sent_signal))
+    rcv_signal = sent_signal + noise_std*np.random.randn(len(sent_signal))+ 1j*noise_std*np.random.randn(len(sent_signal))
     return rcv_signal
 
 def serialize_complex(complex_vector,file_name):
