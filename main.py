@@ -30,14 +30,14 @@ if __name__ == '__main__':
     n = args.n
     comp = args.comp
     qam = qam.QAM(args.m)
-    cmd = "--srv_hostname=iscsrv72.epfl.ch --srv_port=80" if args.srv else ""
+    cmd = " --srv_hostname=iscsrv72.epfl.ch --srv_port=80" if args.srv else ""
 
     utils.encode(qam)
 
     tot = 0
     for i in range(n):
         subprocess.call("python client.py --input_file=input.txt --output_file=output.txt" + cmd, shell=True)
-
+        
         utils.decode(qam, comp)
 
         tot += utils.compute_score()

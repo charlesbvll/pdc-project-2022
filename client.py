@@ -19,7 +19,7 @@ import socket
 import numpy as np
 
 import channel_helper as ch
-from utils import channel, deserialize_complex
+from utils import channel, deserialize_complex, serialize_complex
 
 def parse_args():
     parser = argparse.ArgumentParser(description="COM-302 black-box channel simulator. (client)",
@@ -81,4 +81,4 @@ if __name__ == '__main__':
                 err_msg = f'Unknown header: {rx_header}'
                 raise Exception(err_msg)
     else:
-        np.savetxt(args.output_file, channel(deserialize_complex(args.input_file)))  
+        np.savetxt(args.output_file, channel(deserialize_complex(args.input_file)))

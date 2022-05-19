@@ -36,18 +36,6 @@ def write_final(text):
     with open("final.txt", "w+", encoding="utf-8") as file:
         file.write(text)
 
-def compare(strings):
-    _max = 0.0
-    idx = 0
-    for i, s in enumerate(strings):
-        count = len(np.array([int(ord(c)) for c in s if 97 < int(ord(c)) < 122]))
-        bad = len(np.array([int(ord(c)) for c in s if int(ord(c)) < 30]))
-        tmp = count/(bad+1)
-        if tmp > _max:
-            _max = tmp
-            idx = i
-    return strings[idx]
-
 def compute_score():
     ini = read_file('initial.txt')[0]
     fin = read_file('final.txt')[0]
@@ -63,28 +51,13 @@ def encode(qam):
     result = qam.encode(initial_str[0])
     serialize_complex(result, "input.txt")
 
-def decode(qam, comparaison=True):
+def decode(qam):
     content = read_file("output.txt")
     content = [complex(c) for c in content]
 
-    if comparaison:
-        _list = qam.decode_to_list(content)
-        strings = list_to_strings(_list)
-        finalText = compare(strings)
-    else:
-        comps = qam.decode(content)
-        finalText = comps_to_string(comps)
+    comps = qam.decode(content)
+    finalText = comps_to_string(comps)
     write_final(finalText)
-
-def list_to_strings(_list):
-    strings = []
-    for _bytes in _list:
-        chars = []
-        for byte in _bytes:
-            u = int('0b' + byte, 2)
-            chars.append(chr(u))
-        strings.append(''.join(chars))
-    return strings
 
 def comps_to_string(_bytes):
     chars = []

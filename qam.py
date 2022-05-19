@@ -57,17 +57,3 @@ class QAM:
             idx = np.argmin([abs(shifted-e) for e in self.const])
             tmp += self.code[idx]
         return [tmp[i:i+8] for i in range(0, len(tmp), 8)]
-
-    def decode_to_list(self, s):
-        N = 36
-        tmp = ['']*N
-        for i, theta in enumerate(np.linspace(0, 2*np.pi, N)):
-            for c in s:
-                shifted = abs(c)*np.exp(1j*(-theta+np.angle(c)))
-                idx = np.argmin([abs(shifted-e) for e in self.const])
-                tmp[i] += self.code[idx]
-
-        res = []
-        for r in tmp:
-            res.append([r[i:i+8] for i in range(0, len(r), 8)])
-        return res
