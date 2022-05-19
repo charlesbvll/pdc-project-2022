@@ -4,7 +4,7 @@ Transmission of a message over a complex AGWN channel with the following charact
 
 <img src="docs/channel.png" />
 
-`numpy` and `jellyfish` are required to run the script : `pip install numpy jellyfish`.
+`numpy` and `jellyfish` are required to run the script, they can be installed with : `pip install numpy jellyfish`.
 
 The program can be ran using the following command :
 
