@@ -10,7 +10,7 @@ def to_qam(s):
     result = []
     for c in s:
         bits = bin(ord(c))[2:]
-        byte = '00000000'[len(bits):] + bits
+        byte = ('0'*8)[len(bits):] + bits
         result.append(const[int("".join(str(k) for k in byte), 2)])
     return np.array(result)
 

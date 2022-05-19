@@ -6,15 +6,17 @@ from math import sqrt
 def make_const_code(m):
     const = []
     code = []
-    N = int(sqrt(m/4))
+    quad = int(m/4)
+    sq = sqrt(m)
+    N = int(sqrt(quad))
     for k in range(4):
         for i in range(N):
             for j in range(N):
                 s1 = -1 if k < 2 else 1
                 s2 = -1 if k % 2 == 0 else 1 
-                re = s1*(2*j+1)/10
-                im = s2*(2*i+1)/10
-                bits = bin(int((m/4))*k + N*i + j)[2:]
+                re = s1*(2*j+1)*(3/2)*(1/(sq-1))
+                im = s2*(2*i+1)*(3/2)*(1/(sq-1))
+                bits = bin(quad*k + N*i + j)[2:]
                 byte = '00000000'[len(bits):] + bits
                 const.append(complex(re, im))
                 code.append(byte)
