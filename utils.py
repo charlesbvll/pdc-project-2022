@@ -36,8 +36,8 @@ def write_final(text):
     with open("final.txt", "w+", encoding="utf-8") as file:
         file.write(text)
 
-def compute_score():
-    ini = read_file('initial.txt')[0]
+def compute_score(init):
+    ini = read_file(init)[0]
     fin = read_file('final.txt')[0]
     diff = jellyfish.damerau_levenshtein_distance(ini, fin)
 
@@ -46,8 +46,8 @@ def compute_score():
 
     return diff
 
-def encode(qam):
-    initial_str = read_file("initial.txt") 
+def encode(qam, init):
+    initial_str = read_file(init) 
     result = qam.encode(initial_str[0])
     serialize_complex(result, "input.txt")
 

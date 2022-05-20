@@ -19,6 +19,8 @@ def parse_args():
                         help='Number of times to test the transmission')
     parser.add_argument('--m', type=int, default=64,
                         help='Number of points in the qam constellation')
+    parser.add_argument('--init_file', type=str, default='initial.txt',
+                        help='.txt file containing the text to transmit.')
 
     return parser.parse_args()
 
@@ -29,7 +31,7 @@ if __name__ == '__main__':
     qam = qam.QAM(args.m)
     cmd = " --srv_hostname=iscsrv72.epfl.ch --srv_port=80" if args.srv else ""
 
-    utils.encode(qam)
+    utils.encode(qam, args.init_file)
 
     tot = 0
     for i in range(n):
@@ -37,7 +39,7 @@ if __name__ == '__main__':
         
         utils.decode(qam)
 
-        tot += utils.compute_score()
+        tot += utils.compute_score(args.init_file)
         
         if args.srv and n > 1:
             time.sleep(30)
