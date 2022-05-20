@@ -4,3 +4,4 @@ pdc/*
 __pycache__/*
 *.old
 Pipfile
+*.ipynb
