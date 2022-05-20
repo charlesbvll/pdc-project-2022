@@ -5,8 +5,6 @@ import argparse
 import subprocess
 import time
 
-import numpy as np
-
 
 def parse_args():
     parser = argparse.ArgumentParser(description="Transmission through a black-box channel simulator",
@@ -19,6 +17,10 @@ def parse_args():
                         help='Number of times to test the transmission')
     parser.add_argument('--m', type=int, default=64,
                         help='Number of points in the qam constellation')
+    parser.add_argument('--k', type=int, default=9,
+                        help='Number of points used to estimate Theta')
+    parser.add_argument('--lim', type=float, default=0.9,
+                        help='Limit of the qam constellation')
     parser.add_argument('--init_file', type=str, default='initial.txt',
                         help='.txt file containing the text to transmit.')
 
@@ -28,7 +30,7 @@ if __name__ == '__main__':
     args = parse_args()
     
     n = args.n
-    qam = qam.QAM(args.m)
+    qam = qam.QAM(args.m, args.k, args.lim)
     cmd = " --srv_hostname=iscsrv72.epfl.ch --srv_port=80" if args.srv else ""
 
     utils.encode(qam, args.init_file)

@@ -3,11 +3,11 @@ from math import sqrt
 import numpy as np
 
 class QAM:
-    def __init__(self, m):
+    def __init__(self, m, k, lim):
         self.m = m
         self.const, self.code = self.make_const_code(m)
-        self.K = 9
-        self.maxK = 9
+        self.K = k
+        self.lim = lim
 
     def make_const_code(self, m):
         const = []
@@ -43,15 +43,13 @@ class QAM:
         # Determine phase
         for _ in range(self.K):
             result.append(complex(1, 0))
-        for _ in range(self.maxK - self.K):
-            result.append(complex(0, 0)) #could be useful to reduce average energy
         for byte in sep:
             result.append(self.const[int("".join(str(k) for k in byte), 2)])
         return np.array(result)
 
     def decode(self, s):
         phase = s[0:self.K]
-        s = s[self.maxK:]
+        s = s[self.K:]
         tmp = ''
         theta = -np.angle(sum(phase))
         for c in s:

@@ -9,7 +9,7 @@ Transmission of a message over a complex AGWN channel with the following charact
 The program can be ran using the following command :
 
 ```sh
-python main.py --srv --n=1 --m=64 --init_file initial.txt
+python main.py --srv --n=1 --m=64 --k=9 --lim=0.9 --init_file initial.txt
 ```
 
-In the above command the values used for `--n`, `--m` and `--init_file` are the default ones, when `--srv` is set the channel used is the one on the EPFL server (VPN required) otherwise it uses a simulated channel locally, the `--n` argument allows you to run the transmission multiple times and get an average difference, the `--m` argument is there to choose the number of points in the QAM constellation and the `--init_file` argument passes a txt file to the program to transmit.
+In the above command the values used for `--n`, `--m`, `--k`, `--lim` and `--init_file` are the default ones, when `--srv` is set the channel used is the one on the EPFL server (VPN required) otherwise it uses a simulated channel locally, the `--n` argument allows you to run the transmission multiple times and get an average difference, the `--m` argument is there to choose the number of points in the QAM constellation, the `--k` argument defines the number of points that should be used to estimate theta, the `--lim` argument sets the limit of the QAM constellation and the `--init_file` argument passes a txt file to the program to transmit.
