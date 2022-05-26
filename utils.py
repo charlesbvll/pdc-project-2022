@@ -22,7 +22,7 @@ def deserialize_complex(file_name):
     tx_data = np.loadtxt(file_name)
     N_sample = tx_data.size
     N_sample = N_sample//2
-    tx_data = np.clip(tx_data, -1.5,1.5)
+    #tx_data = np.clip(tx_data, -1.5,1.5)
     tx_data = tx_data[0:N_sample] + 1j*tx_data[N_sample:(2*N_sample)]
     return tx_data
 
