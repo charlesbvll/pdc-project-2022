@@ -5,3 +5,4 @@ __pycache__/*
 *.old
 Pipfile
 *.ipynb
+*/__pycache__/*

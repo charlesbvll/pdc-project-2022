@@ -1,5 +1,4 @@
-import qam
-import utils
+from src import *
 
 import argparse
 import subprocess
@@ -37,7 +36,7 @@ if __name__ == '__main__':
 
     tot = 0
     for i in range(n):
-        subprocess.call("python client.py --input_file=input.txt --output_file=output.txt" + cmd, shell=True)
+        subprocess.call("python src/client.py --input_file=input.txt --output_file=output.txt" + cmd, shell=True)
         
         utils.decode(qam)
 
