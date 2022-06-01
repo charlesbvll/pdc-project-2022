@@ -5,26 +5,27 @@ import numpy as np
 class QAM:
     def __init__(self, m, k, lim):
         self.m = m
-        self.const, self.code = self.make_const_code(m)
         self.K = k
         self.lim = lim
+        self.const, self.code = self.make_const_code(m)
+
 
     def make_const_code(self, m):
         const = []
         code = []
         quad = int(m/4)
         sq = sqrt(m)
+        nbSentBit = int(np.log2(m))
         N = int(sqrt(quad))
-        lim = 0.9
         for k in range(4):
             for i in range(N):
                 for j in range(N):
                     s1 = -1 if k < 2 else 1
                     s2 = -1 if k % 2 == 0 else 1 
-                    re = s1*(2*j+1)*(lim)*(1/(sq-1))
-                    im = s2*(2*i+1)*(lim)*(1/(sq-1))
+                    re = s1*(2*j+1)*(self.lim)*(1/(sq-1))
+                    im = s2*(2*i+1)*(self.lim)*(1/(sq-1))
                     bits = bin(quad*k + N*i + j)[2:]
-                    byte = '000000'[len(bits):] + bits
+                    byte = (nbSentBit * '0')[len(bits):] + bits
                     const.append(complex(re, im))
                     code.append(byte)
         return const, code

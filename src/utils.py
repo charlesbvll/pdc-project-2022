@@ -4,6 +4,7 @@ import numpy as np
 def channel(sent_signal):
     s = np.mean(abs(sent_signal)**2)
     print(s)
+    print(len(sent_signal))
     if s <= 1:
         s = 1
     noise_power = (10**(-2.65))*s

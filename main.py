@@ -35,15 +35,22 @@ if __name__ == '__main__':
     utils.encode(qam, args.init_file)
 
     tot = 0
+    nb0 = 0
+    nberr = 0
     for i in range(n):
         subprocess.call("python src/client.py --input_file=input.txt --output_file=output.txt" + cmd, shell=True)
         
         utils.decode(qam)
 
-        tot += utils.compute_score(args.init_file)
+        nberr = utils.compute_score(args.init_file)
+        tot += nberr
+
+        if (nberr == 0):
+            nb0 += 1
         
         if args.srv and n > 1:
             time.sleep(30)
 
     if n > 1:
         print("Average difference is : ", tot/n)
+        print("Number of perfect : ", nb0)
